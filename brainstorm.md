@@ -1,4 +1,4 @@
-# Solana Security Pitfals
+# Solana Security Pitfalls
 
  - missing signer check
  - seed collision
@@ -11,4 +11,5 @@
  - account serialization (in non-anchor programs)
  - improper account ordering (non-anchor)
  - loss of precision
- - arbitrary CPI
+ - arbitrary  CPI
+ - cpi reloading after invocation
