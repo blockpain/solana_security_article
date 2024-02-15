@@ -8,8 +8,14 @@
  - frontrunning
  - nonce validation
  - ownership check (not signer)
- - account serialization (in non-anchor programs)
+ - account/type confusion (non-anchor)
  - improper account ordering (non-anchor)
  - loss of precision
  - arbitrary  CPI
  - cpi reloading after invocation
+
+# Previous Solana Hacks, and What Could Have Prevented Them
+
+ - wormhole
+ - drift
+ - ???
