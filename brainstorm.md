@@ -14,7 +14,7 @@
  - arbitrary  CPI
  - cpi reloading after invocation
 
-# Previous Solana Hacks, and What Could Have Prevented Them
+## Previous Solana Hacks, and What Could Have Prevented Them
 
  - wormhole
  - drift
