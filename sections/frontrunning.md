@@ -17,7 +17,8 @@ pub struct ProductListing {
   sale_price: u64,
   token_mint: Pubkey,
   destination_token_account: Pubkey,
-  owner: Pubkey
+  owner: Pubkey,
+  product: Product
 ```
 
 To purchase a `Product` that is listed, a buyer would need to pass in the `SellInfo` account related to the product they want. But what if the seller is able to change the `sale_price` of their listing? 
