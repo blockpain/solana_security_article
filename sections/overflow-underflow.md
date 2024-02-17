@@ -79,6 +79,23 @@ In the revised example, `checked_sub` is used to subtract `tokens_to_subtract` f
 `checked_sub` will return `Some(new_balance)`. The program continues to update the account's balance safely and logs it. However, if the subtraction 
 would result in an underflow, `checked_sub` returns `None`, which we can handle by returning an error.
 
+### Checked Math Macro
+[Checked Math](https://github.com/blockworks-foundation/checked-math) is a [procedural macro](https://doc.rust-lang.org/book/ch19-06-macros.html#procedural-macros-for-generating-code-from-attributes) 
+for changing the properties for checking mathematical expressions without having to alter those expressions, for the most part. The issue with 
+`checked_*` arithmetic functions is the loss of mathematical notation. Instead, cumbersome methods like `a.checked_add(b).unwrap()` need to be used 
+instead of `a + b`. For example, if we want to write `(x * y) + z` using the checked arithmetic functions, we'd write 
+`x.checked_mul(y).unwrap().checked_add(z).unwrap()`. 
+
+Instead, the following expression would look like this using the Checked Math macro:
+```
+use checked_math::checked_math as cm;
+
+cm!((x * y) + z).unwrap()
+```
+This more convenient to write, preserves the expression's mathematical notation, and only requires one `.unwrap()`. This is because the macro converts normal 
+math expressions into an expression that returns `None` if any of the checked steps return `None`. `Some(_)` is returned, if successful, which is why we unwrap 
+the expression at the end.
+
 ## Casting
 Similarly, casting between integer types using the `as` keyword without proper checks can introduce an integer overflow or underflow vulnerabilities. This is 
 because casting can either truncate or extend values in unintended ways. When casting from a larger integer type to a smaller one (e.g., `u64` to `u32`), 
