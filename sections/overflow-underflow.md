@@ -42,12 +42,12 @@ If the user's balance is less than `tokens_to_subtract`, it'll cause an underflo
 of 165 tokens.
 
 ## Recommended Mitigation
-### overflow-checks
+### `overflow-checks`
 The easiest way to mitigate this vulnerability is to set the key `overflow-checks` to `true` in the project's `Cargo.toml` file. Here, Rust will add overflow
 and underflow checks in the compiler. However, adding overflow and underflow checks increases the [compute cost](https://solana.com/docs/core/runtime#compute-budget) 
 of a transaction. In cases where compute needs to be optimized for, it may be more beneficial to set `overflow-checks` to `false`.
 
-### checked_* Arithmetic
+### `checked_*` Arithmetic
 Use Rust's `checked_*` arithmetic functions on each integer type to strategically check for overflows and underflows throughout your program. These functions will
 return `None` if an overflow or underflow would occur. This allows the program to handle the error gracefully. For example, you could refactor the previous code to:
 ```
