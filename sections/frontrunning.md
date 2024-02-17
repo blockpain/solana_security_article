@@ -9,7 +9,8 @@ pub struct SellInfo<'info> {
   sale_token_mint: Account<'info, Mint>,
   sale_token_destination: Account<'info, TokenAccount>,
   product_owner: Signer<'info>,
-  purchaser_token_source: Account<'info, TokenAccount>
+  purchaser_token_source: Account<'info, TokenAccount>,
+  product: Account<info, Product>
 }
 
 #[account]
@@ -18,7 +19,8 @@ pub struct ProductListing {
   token_mint: Pubkey,
   destination_token_account: Pubkey,
   owner: Pubkey,
-  product: Product
+  product: Pubkey,
+}
 ```
 
 To purchase a `Product` that is listed, a buyer would need to pass in the `SellInfo` account related to the product they want. But what if the seller is able to change the `sale_price` of their listing? 
