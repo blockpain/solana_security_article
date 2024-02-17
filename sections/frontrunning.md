@@ -6,9 +6,9 @@ With the rising popularity of transaction bundlers such as Jito and priority tra
 #[account]
 pub struct SellInfo {
   sale_price: u64,
-  product_for_sale: Product
+  product_for_sale: Product,
   sale_token_mint: Mint,
-  sale_token_destination
+  sale_token_destination: Pubkey
 }
 ```
 
