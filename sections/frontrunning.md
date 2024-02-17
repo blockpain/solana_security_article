@@ -15,7 +15,7 @@ pub struct SellInfo {
 To purchase a `Product` that is listed, a buyer would need to pass in the `SellInfo` account related to the product they want. But what if the seller is able to change the `sale_price` of their listing? 
 
 ```
-pub fn change_sale_price(Ctx<ChangeSalePrice>, new_price: u64) {...}
+pub fn change_sale_price(ctx: Context<ChangeSalePrice>, new_price: u64) {...}
 ```
 
 This would introduce a serious frontrunning opportunity for the seller, especially if the buyers purchasing transaction doesnt include `expected_price` checks that would ensure they are paying no more than the `expected_price`. If the purchaser submits a transaction to buy the given `Product` is would be possible for the seller to call `change_sale_price`, and using Jito, ensure this transaction is included ~before~ the purchasers transaction. A malicious seller could change the price of the `Product` to an exorbitant amount, unbeknownst to the purchaser, forcing them to pay much more than expected for the `Product`! 
