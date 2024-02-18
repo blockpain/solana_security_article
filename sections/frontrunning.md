@@ -5,7 +5,7 @@ With the rising popularity of transaction bundlers such as Jito and priority tra
 ```rust
 #[derive(Accounts)]
 pub struct SellInfo<'info> {
-  product_for_sale: Account<'info, ProductListing>,
+  product_listing: Account<'info, ProductListing>,
   sale_token_mint: Account<'info, Mint>,
   sale_token_destination: Account<'info, TokenAccount>,
   product_owner: Signer<'info>,
