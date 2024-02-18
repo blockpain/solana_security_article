@@ -10,7 +10,7 @@ by the appropriate account's private key before executing certain privileged fun
 
 ## Example
 Take the following function,
-```
+```rust
 pub fn update_admin(program_id: &Pubkey, accounts &[AccountInfo]) -> ProgramResult {
     let account_iter = &mut accounts.iter();
     let config = ConfigAccount::unpack(next_account_info(account_iter)?)?;
@@ -39,7 +39,7 @@ field of the accounts involved in the transaction. The program can enforce that 
 by checking whether the account executing the privileged operation has the `is_signer` flag set to `true`.
 
 The updated code example would look like this:
-```
+```rust
 pub fn update_admin(program_id: &Pubkey, accounts &[AccountInfo]) -> ProgramResult {
     let account_iter = &mut accounts.iter();
     let config = ConfigAccount::unpack(next_account_info(account_iter)?)?;

@@ -17,7 +17,7 @@ and underflows.
 ## Example
 An attacker can exploit this vulnerability by taking advantage of the silent overflow / underflow behavior in release mode, especially functions that
 handle token balances. Take the following example,
-```
+```rust
 pub fn process_instruction(
     _program_id: & Pubkey,
     accounts: [&AccountInfo],
@@ -50,7 +50,7 @@ of a transaction. In cases where compute needs to be optimized for, it may be mo
 ### `checked_*` Arithmetic
 Use Rust's `checked_*` arithmetic functions on each integer type to strategically check for overflows and underflows throughout your program. These functions will
 return `None` if an overflow or underflow would occur. This allows the program to handle the error gracefully. For example, you could refactor the previous code to:
-```
+```rust
 pub fn process_instruction(
     _program_id: & Pubkey,
     accounts: [&AccountInfo],
@@ -87,7 +87,7 @@ instead of `a + b`. For example, if we want to write `(x * y) + z` using the che
 `x.checked_mul(y).unwrap().checked_add(z).unwrap()`. 
 
 Instead, the following expression would look like this using the Checked Math macro:
-```
+```rust
 use checked_math::checked_math as cm;
 
 cm!((x * y) + z).unwrap()
@@ -110,7 +110,7 @@ and [`from`](https://doc.rust-lang.org/std/convert/trait.From.html#tymethod.from
 of cases where the value does not fit into the target type gracefully. Using Rust's `from` method can be used for a safe, implicit conversion for conversions that
 are guaranteed to be lossless (e.g., `u8` to `u32`). For example, if a program needed to safely convery a `u64` token amount to a `u32` type for processing, it can 
 do the following:
-```
+```rust
 pub fn convert_token_amount(amount: u64) -> Result<u32, ProgramError> {
     u32::try_from(amount).map_err(|_| ProgramError::InvalidArgument)
 }
