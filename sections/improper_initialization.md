@@ -37,7 +37,50 @@ pub struct CentralState {
 
 The example above is a stripped down initialize function, which sets the authority of a `CentralState` account to the caller of the instruction. However, this could be any account who calls initialize! As previously mentioned, a common way to secure an initialization function is to use the programs `upgrade_authority`, which is known at deployment.
 
-Below is an example from the anchor documentation using constraints, ensuring  only the program's upgrade authority can call initialize.
+Below is an example from the anchor documentation which uses constraint to ensure only the program's upgrade authority can call initialize.
+
+`https://docs.rs/anchor-lang/latest/anchor_lang/accounts/account/struct.Account.html#example-1`
 
 
-**TODO** add anchor example here
+```rust
+use anchor_lang::prelude::*;
+use crate::program::MyProgram;
+
+declare_id!("Cum9tTyj5HwcEiAmhgaS7Bbj4UczCwsucrCkxRECzM4e");
+
+#[program]
+pub mod my_program {
+    use super::*;
+
+    pub fn set_initial_admin(
+        ctx: Context<SetInitialAdmin>,
+        admin_key: Pubkey
+    ) -> Result<()> {
+        ctx.accounts.admin_settings.admin_key = admin_key;
+        Ok(())
+    }
+
+    pub fn set_admin(...){...}
+
+    pub fn set_settings(...){...}
+}
+
+#[account]
+#[derive(Default, Debug)]
+pub struct AdminSettings {
+    admin_key: Pubkey
+}
+
+#[derive(Accounts)]
+pub struct SetInitialAdmin<'info> {
+    #[account(init, payer = authority, seeds = [b"admin"], bump)]
+    pub admin_settings: Account<'info, AdminSettings>,
+    #[account(mut)]
+    pub authority: Signer<'info>,
+    #[account(constraint = program.programdata_address()? == Some(program_data.key()))]
+    pub program: Program<'info, MyProgram>,
+    #[account(constraint = program_data.upgrade_authority_address == Some(authority.key()))]
+    pub program_data: Account<'info, ProgramData>,
+    pub system_program: Program<'info, System>,
+}
+
