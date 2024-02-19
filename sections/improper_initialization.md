@@ -9,7 +9,7 @@ A common practice is to use the programs `upgrade_authority` as the authorized a
 ### insecure initialization (can be frontrun)
 
 ```rust
-pub fn initialize(ctx: Context<Initialize>) -> ProgramResult {
+pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
   ctx.accounts.central_state.authority = authority.key();
   ...  
 }

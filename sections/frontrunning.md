@@ -36,7 +36,7 @@ pub struct ProductListing {
 To purchase a `Product` that is listed, a buyer would need to pass in the `ProductListing` account related to the product they want. But what if the seller is able to change the `sale_price` of their listing? 
 
 ```rust
-pub fn change_sale_price(ctx: Context<ChangeSalePrice>, new_price: u64) {...}
+pub fn change_sale_price(ctx: Context<ChangeSalePrice>, new_price: u64) -> Result<()> {...}
 ```
 
 This would introduce a frontrunning opportunity for the seller, especially if the buyers purchasing transaction doesnt include `expected_price` checks that would ensure they are paying no more than expected for the product they want. If the purchaser submits a transaction to buy the given `Product` is would be possible for the seller to call `change_sale_price`, and using Jito, ensure this transaction is included before the purchasers transaction. A malicious seller could change the price in the `ProductListing` account to an exorbitant amount, unbeknownst to the purchaser, forcing them to pay much more than expected for the `Product`! 
@@ -46,7 +46,7 @@ This would introduce a frontrunning opportunity for the seller, especially if th
 A simple solution  would be including `expected_price` checks on the purchasing side of the deal, preventing the buyer from paying more than expected for the `Product` they want to buy.
 
 ```rust
-pub fn purchase_product(ctx: Context<PurchaseProduct>, expected_price: u64) -> ProgramResult {
+pub fn purchase_product(ctx: Context<PurchaseProduct>, expected_price: u64) -> Result<()> {
   assert!(ctx.accounts.product_listing.sale_price <= expected_price);
   ...
 }
