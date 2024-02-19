@@ -23,6 +23,7 @@ pub struct Initialize<'info> {
     payer = authority,
     space = CentralState::SIZE,
     seeds = CentralState::SEEDS,
+  )]
   central_state: Account<'info, CentralState>,
   ...
 }
