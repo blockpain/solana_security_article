@@ -18,7 +18,7 @@ of operations matters significantly. Performing division first `(a/c)` may resul
 multiplied by `b`. This could result in a smaller result than expected. Conversely, multiplying `(a*b)` before dividing by `c` could preserve more of 
 the original precision. This difference can lead to incorrect calculations, creating unexpected program behavior and/or arbitrage opportunities.
 
-### saturating_* Arithmetic Functions
+### `saturating_*` Arithmetic Functions
 While `saturating_*` arithmetic functions prevent overflow and underflow by capping values at their maximum or minimum possible values, they can lead to
 subtle bugs and precision loss if this cap is reached unexpectedly. This occurs when the program's logic assumes that saturation alone will guarantee an
 accurate result and ignores handling the potential loss of precision or accuracy. 
