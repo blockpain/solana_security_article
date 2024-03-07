@@ -50,4 +50,4 @@ platform since Solana's runtime cannot distinguish between the colliding PDAs
 To mitigate the risk of seed collisions, developers can:
 - Use unique prefixes for seeds across different PDAs in the same program. This approach will help ensure that PDAs remain distinct
 - Use unique identifiers (e.g., timestamps, user IDs, nonce values) to guarantee that a unique PDA is generated every time
-- Programmatically validate a generated PDA does not collide with existing PDAs before executing certain actions
+- Programmatically validate a generated PDA does not collide with existing PDAs 
