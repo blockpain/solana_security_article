@@ -8,6 +8,8 @@ units or potentially exposing stale data.
 The `realloc` method has two parameters:
 - `new_len`: a `usize` that specifies the new length of the account's data
 - `zero_init`: a `bool` that determines whether the new memory space should be zero-initialized
+
+`realloc` is defined as follows:
 ```rust
 pub fn realloc(
     &self,
