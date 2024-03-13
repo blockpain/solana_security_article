@@ -36,6 +36,10 @@ behaves maliciously or unexpectedly
 - **Program Derived Addresses (PDAs) Misuse**: incorrectly generating or handling PDAs can lead to vulnerabilities where attackers can
 hijack or spoof PDAs to gain unauthorized access or manipulate program-controlled accounts
 
+Note that reentrancy is inherently limited on Solana due to its execution model. The Solana runtime restricts CPIs to a maximum depth of
+four and enforces strict account rules, such as only allowing an account's owner to modify its data. These constraints effectively prevent
+reentrancy attacks by limiting direct self-recursion and ensuring a program cannot be involuntarily invoked in an intermediary state.
+
 ## Mitigation Strategies
 To mitigate these potential attacks, developers should employ a combination of rigorous testing, code auditing, and adherence to best practices:
 - Implement comprehensive input validation and access control checks
