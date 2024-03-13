@@ -48,3 +48,11 @@ can also use the `#[account]` attribute to add the [`Owner`](https://docs.rs/anc
 defines an address expected to own the account. In addition to this, developers can use the `owner` constraint to define the program that should own a given 
 account, if it's different from the currently executing one. This is useful, for example, when writing an instruction that expects an account to be a PDA derived
 from a different program. The `owner` constraint is defined as: `#[account(owner = <expr>)]`, where `<expr>` is an arbitrary expression.
+
+## Read-Only Accounts
+It's equally important to verify the validity of accounts that are specified as read-only within a program's execution context. This is crucial because a malicious
+actor could pass accounts with arbitrary or crafted data in place of legitimate accounts. This could lead to unexpected or harmful program behavior. Developers should
+still perform checks to ensure that accounts a program needs to read from are genuine and not tampered with. This could involve verifying the account's address
+against known values or confirming the account's owner is as expected, especially for sysvars (i.e., read-only system accounts, such as `Clock` or `EpochSchedule`).
+Access sysvars using the `get()` method, which doesn't require any manual address or ownership checks. This is a safer approach to accessing these accounts, however not
+all sysvars support the `get()` method. In this case, access them using their public address.
